@@ -1,0 +1,36 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+ <center>
+  <div class="well" style="background-color:black">
+    <div class="row">
+    <div class="col-sm-9">
+<h1 style="font-style:italic;margin-right:40px;color:orange">Laptops World </h1>
+</div>
+</div>
+</div>
+</center>
+<center>
+<h1>Add New Laptop Company</h1>
+</center>
+<hr/>
+<br>
+
+<form action="#" method = 'post'>
+<p>Name:</p>
+		<input type ='text' size='30' name='name' required>
+<br><br>
+<p>Icon:</p>
+<input type ='text' size='100' name='icon' required>
+<br><br>
+<input type='submit' value='Create'>
+<a href = '{{ url_for('home') }}'> Cancel </a>
+</form>
+</body>
+</html>

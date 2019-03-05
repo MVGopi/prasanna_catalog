@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+  </script>
+
+<script src="//apis.google.com/js/platform.js?onload=start"> </script>
+
+<!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="result">
+  <center>
+  <div class="well" style="background-color:black">
+    <div class="row" >
+    <div class="col-sm-10">
+  <b><h1 style="font-style:italic;margin-right:40px;color:orange">Laptops World</h1><b>
+  </div>
+ <!-- GOOGLE PLUS SIGN IN-->
+  <div id="signinButton" class="col-sm-2" style="margin-top:30px">
+  <span class="g-signin"
+              data-scope="openid email"
+              data-clientid="249700808510-joqhhmbj181ijd1114ut8bedb9cdcndi.apps.googleusercontent.com"
+              data-redirecturi="postmessage"
+              data-accesstype="offline"
+              data-cookiepolicy="single_host_origin"
+              data-callback="signInCallback"
+              data-approvalprompt="force">
+  </span>
+
+  </div>
+  </div>
+  
+  </center>
+<div class="row"  >
+{% for laptop in laptops_list %}
+    <div class="col-sm-4">
+    <img src="{{ laptop.image }}" width="180" height="200" /><br>
+    <tr>
+    <td>Name:{{ laptop.name }}</td><br>
+    <td>Cost:{{ laptop.price }}</td><br>
+    <td>RAM:{{ laptop.ram }}</td><br>
+    <td>ROM:{{ laptop.rom }}</td><br>
+   </tr><br>
+    </div>
+{% endfor %}
+</div>
+
+  </body>
+
+  </html>
