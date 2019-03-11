@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <center>
+  <div class="well" style="background-color:black">
+    <div class="row">
+      <div class="col-sm-2">
+    <b><a href="{{ url_for('home') }}">Home</a><b>
+    </div>
+    <div class="col-sm-9">
+  <h1 style="font-style:italic;margin-right:40px;color:orange">{{ company.name }} Laptops</h1>
+  </div>
+  <div class="col-sm-14">
+    <a href="{{ url_for('addLaptop',company_id=company.id) }}">Add New Laptop</a>
+  </div>
+  </div>
+  </div>
+  </center>
+<center>
+<div class="row"  >
+{% for laptop in laptops_list %}
+	<div class="col-sm-4">
+	<img src="{{ laptop.image }}" width="180" height="200" /><br>
+    	<tr>
+    	<td>Name:{{ laptop.name }}</td><br>
+    	<td>Cost:{{ laptop.price }}</td><br>
+    	<td>RAM:{{ laptop.ram }}</td><br>
+    	<td>ROM:{{ laptop.rom }}</td><br>
+   	</tr><br>
+	<p><a href = "{{ url_for('editLaptop',company_id=company.id,laptop_id=laptop.id) }}">Edit</a></p><br>
+  	<p> <a href = "{{ url_for('deleteLaptop',company_id=company.id,laptop_id=laptop.id)}}">Remove </a></p>
+    	</div>
+{% endfor %}
+</div>
+</body>
+</html>

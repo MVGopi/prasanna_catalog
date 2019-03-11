@@ -41,7 +41,7 @@
   <div class="row"  >
   {% for company in laptop_companies %}
     <div class="col-sm-4">
-    <a href ="{{ url_for('get_laptops',company_id=company.id) }}">
+    <a href ="{{ url_for('getLaptops',company_id=company.id) }}">
     <img src="{{ company.icon }}" width="180px" height="180px">
     </a>
     </div>

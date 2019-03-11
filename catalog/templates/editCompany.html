@@ -11,23 +11,18 @@
   <div class="well" style="background-color:black">
     <div class="row">
     <div class="col-sm-9">
-<h1 style="font-style:italic;margin-right:40px;color:orange">Laptops World </h1>
+<h1 style="font-style:italic;margin-right:40px;color:orange">Edit {{ company.name }} details</h1>
 </div>
 </div>
 </div>
 </center>
-<center>
-<h1>Add New Laptop Company</h1>
-</center>
-<hr/>
-<br>
 
-<form action="#" method = 'post'>
+<form action="{{ url_for('editCompany',company_id=company.id) }}" method = 'post'>
 <p>Name:</p>
-		<input type ='text' size='30' name='name' required>
+		<input type ='text' size='30' name='name' value="{{ company.name }}" required>
 <br><br>
 <p>Icon:</p>
-<input type ='text' size='100' name='icon' required>
+<input type ='text' size='100' name='icon' value="{{ company.icon }}" required>
 <br><br>
 <input type='submit' value='Create'>
 <a href = '{{ url_for('home') }}'> Cancel </a>

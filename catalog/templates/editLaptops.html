@@ -1,0 +1,36 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <center>
+  <div class="well" style="background-color:black">
+    <div class="row">
+      <div class="col-sm-2">
+    <b><a href="{{ url_for('home') }}">Home</a><b>
+    </div>
+  <div class="col-sm-9">
+    <h1 style="font-style:italic;margin-right:40px;color:orange">Edit {{ laptop_details.name }}</h1>
+  </div>
+  </div>
+  </div>
+  </center>
+<form action="{{ url_for('editLaptop',company_id=company_id,laptop_id=laptop_id) }}" method='post'>
+  <p>Name:</p>
+  <input type ='text' size='30' name='name' value="{{ laptop_details.name }}" required>
+  <p>Price:</p>
+  <input type ='text' size='30' name='price' value="{{ laptop_details.price }}" required >
+  <p>Ram:</p>
+  <input type ='text' size='30' name='ram' value="{{ laptop_details.ram }}" required>
+  <p>Rom:</p>
+  <input type ='text' size='30' name='rom' value="{{ laptop_details.rom }}" required>
+  <p>Image:</p>
+  <input type ='text' size='150' name='image' value="{{ laptop_details.image }}" required><br><br>
+  <input type='submit' value='update'><a href = '{{url_for('retriveLaptops',company_id=company_id)}}'> Cancel </a>
+</form>
+</body>
+</html

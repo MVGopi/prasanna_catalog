@@ -11,7 +11,7 @@
   <div class="well" style="background-color:black">
     <div class="row">
       <div class="col-sm-2" style="font-size:15px;font-style:italic">
-      <b><a href="#">Add New Laptop Company</a></b>
+      <b><a href="{{ url_for('addCompany') }}">Add New Laptop Company</a></b>
       </div>
     <div class="col-sm-9">
 <h1 style="font-style:italic;margin-right:40px;color:orange">Laptops World</h1>
@@ -26,11 +26,11 @@
 <div class="row"  >
 {% for company in laptop_companies %}
   <div class="col-sm-4">
-  <a href ="#">
+  <a href =" {{ url_for('retriveLaptops',company_id=company.id) }}">
   <img src="{{ company.icon }}" width="180px" height="180px">
   </a>
-  <p><a href = "#">Edit {{company.name}}</a></p><br>
-  <p> <a href = "#">Remove {{company.name}}</a></p>
+  <p><a href = "{{ url_for('editCompany',company_id=company.id) }}">Edit {{ company.name }}</a></p><br>
+  <p> <a href = "{{ url_for('deleteCompany',company_id=company.id) }}">Remove {{company.name}}</a></p>
   </div>
 {% endfor %}
 </div>

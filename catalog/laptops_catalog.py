@@ -151,11 +151,11 @@ def index():
 
 #show laptops before signin
 
-@app.route('/get_laptops/<int:company_id>/')
-def get_laptops(company_id):
+@app.route('/getLaptops/<int:company_id>/')
+def getLaptops(company_id):
 	company=session.query(Company).filter_by(id=company_id).one()
 	laptops=session.query(Laptop).filter_by(company_id=company_id).all()
-	return render_template('get_laptops.html', laptop_companies=company, laptops_list=laptops)
+	return render_template('getLaptops.html', laptop_companies=company, laptops_list=laptops)
 	
 
 
@@ -165,6 +165,125 @@ def get_laptops(company_id):
 def home():
 	company = session.query(Company).all()
 	return render_template("home.html", laptop_companies=company)
+
+
+
+#adding new laptop company
+
+
+@app.route('/addCompany',methods=['POST','GET'])
+def addCompany():
+	if request.method == 'POST':
+	        newComp = Company(name=request.form['name'],icon=request.form['icon'])
+        	session.add(newComp)
+        	session.commit()
+        	return redirect(url_for('home'))
+    	else:
+        	return render_template('addCompany.html')
+
+
+#edit laptop company details
+
+@app.route('/editCompany/<int:company_id>',methods=['POST','GET'])
+def editCompany(company_id):
+	editComp = session.query(Company).filter_by(id=company_id).one()
+	if request.method == 'POST':
+        	if request.form['name']:
+            		editComp.name = request.form['name']
+	    		editComp.icon = request.form['icon']
+            		return redirect(url_for('home'))
+    	else:
+        	return render_template('editCompany.html', company=editComp)
+
+
+
+#remove laptop company
+
+
+@app.route('/deleteCompany/<int:company_id>',methods=['POST','GET'])
+def deleteCompany(company_id):
+	removeComp=session.query(Company).filter_by(id=company_id).one()
+	if request.method=='POST':
+	        session.delete(removeComp)
+        	session.commit()
+        	return redirect(url_for('home'))
+    	else:
+        	return render_template('deleteCompany.html',company=removeComp)
+
+
+#user can view laptops of specific company
+
+@app.route('/retriveLaptops/<int:company_id>/')
+def retriveLaptops(company_id):
+	companies=session.query(Company).filter_by(id=company_id).one()
+	laptops=session.query(Laptop).filter_by(company_id=company_id).all()
+	return render_template('retriveLaptops.html',laptops_list=laptops,company=companies)
+
+
+#add new laptop info 
+
+
+@app.route('/addLaptop/<int:company_id>',methods=['POST','GET'])
+def addLaptop(company_id):
+	if request.method=='POST' and request.form['name']:
+        	newLaptop=Laptop(name=request.form['name'],price=request.form['price'],
+                ram=request.form['ram'],rom=request.form['rom'],
+                          image=request.form['image'],company_id=company_id)
+        	session.add(newLaptop)
+        	session.commit()
+        	return redirect(url_for('retriveLaptops',company_id=company_id))
+    	else:
+        	return render_template('addLaptop.html',company_id=company_id)
+    	return render_template('addlaptop.html',company_id=company_id)
+
+
+
+
+#edit laptops info
+
+
+@app.route('/editLaptop/<int:company_id>/<int:laptop_id>',methods=['POST','GET'])
+def editLaptop(company_id,laptop_id):
+    updateLaptop=session.query(Laptop).filter_by(id=laptop_id).one()
+    if request.method=='POST':
+        updateLaptop.name=request.form['name']
+        updateLaptop.price=request.form['price']
+        updateLaptop.ram=request.form['ram']
+        updateLaptop.rom=request.form['rom']
+        updateLaptop.image=request.form['image']
+        session.commit()
+        return redirect(url_for('retriveLaptops',company_id=company_id))
+    else:
+        return render_template('editLaptops.html',company_id=company_id,laptop_id=laptop_id,laptop_details=updateLaptop)
+
+
+#delete laptops info
+
+
+@app.route('/deleteLaptop/<int:company_id>/<int:laptop_id>',methods=['POST','GET'])
+def deleteLaptop(company_id,laptop_id):
+    removeLaptop=session.query(Laptop).filter_by(id=laptop_id).one()
+    if request.method=="POST":
+        session.delete(removeLaptop)
+        session.commit()
+        return redirect(url_for('retriveLaptops',company_id=company_id))
+    else:
+        return render_template('deleteLaptop.html',company_id=company_id,laptop_id=laptop_id,laptop=removeLaptop)
+
+
+
+@app.route('/company/<int:id>/JSON')
+def CompanyJSON(id):
+    companies = session.query(Company).filter_by(id=id).all()
+    return jsonify(companies=[i.serialize for i in companies])
+
+
+
+@app.route('/laptop/<int:id>/JSON')
+def LaptopJSON(id):
+    lap = session.query(Laptop).filter_by(company_id=id).all()
+    return jsonify(mob=[i.serialize for i in lap])
+
 
 
 

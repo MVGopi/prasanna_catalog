@@ -1,1 +1,0 @@
-# prasanna_catalog
